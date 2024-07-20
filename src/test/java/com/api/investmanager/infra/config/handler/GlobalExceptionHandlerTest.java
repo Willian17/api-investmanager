@@ -8,9 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -33,19 +31,73 @@ class GlobalExceptionHandlerTest {
     public void handleValidationExceptions_ShouldReturnBadRequestAndErrorMessages() {
         FieldError fieldError1 = new FieldError("objectName", "username", "Username is mandatory");
         FieldError fieldError2 = new FieldError("objectName", "email", "Email should be valid");
-        FieldError fieldError3 = new FieldError("objectName", "password", "Password should have at least 8 characters");
-        when(bindingResult.getFieldErrors()).thenReturn(List.of(fieldError1, fieldError2, fieldError3));
+        FieldError fieldError3 = new FieldError("objectName", "password", "Password is mandatory");
+        FieldError fieldError4 = new FieldError("objectName", "password", "Password should have at least 8 characters");
+        when(bindingResult.getFieldErrors()).thenReturn(List.of(fieldError1, fieldError2, fieldError3, fieldError4));
 
-        ResponseEntity<Map<String, String>> response = globalExceptionHandler.handleValidationExceptions(methodArgumentNotValidException);
+        ResponseEntity<ApiErroTemplate> response = globalExceptionHandler.handleValidationExceptions(methodArgumentNotValidException);
 
-        Map<String, String> expectedErrors = new HashMap<>();
-        expectedErrors.put("username", "Username is mandatory");
-        expectedErrors.put("email", "Email should be valid");
-        expectedErrors.put("password", "Password should have at least 8 characters");
+        List<FieldErrorDTO> expectedErrors = List.of(
+                new FieldErrorDTO("password", "Password is mandatory"),
+                new FieldErrorDTO("email", "Email should be valid"),
+                new FieldErrorDTO("username", "Username is mandatory")
+
+        );
 
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals(expectedErrors, response.getBody());
+
+        ApiErroTemplate apiErroTemplate = response.getBody();
+        assertNotNull(apiErroTemplate);
+        assertEquals(HttpStatus.BAD_REQUEST.value(), apiErroTemplate.getStatusCode());
+        assertEquals(expectedErrors.size(), apiErroTemplate.getFieldErrors().size());
+
+        for (int i = 0; i < expectedErrors.size(); i++) {
+            FieldErrorDTO expectedError = expectedErrors.get(i);
+            FieldErrorDTO actualError = apiErroTemplate.getFieldErrors().get(i);
+            assertEquals(expectedError.getField(), actualError.getField());
+            assertEquals(expectedError.getMessage(), actualError.getMessage());
+        }
+
+        assertNotNull(apiErroTemplate.getTimestamp());
+        assertEquals("Erro de validação: Por favor, corrija os campos destacados e tente novamente.", apiErroTemplate.getMessage());
+    }
+
+    @Test
+    public void handleValidationExceptions_ShouldOrdemPriorityCodes() {
+        FieldError fieldErrorNameSize = new FieldError("objectName", "username", null, false, new String[]{"Size"}, null, "Nome deve ter 14 caracteres");
+        FieldError fieldErrorNameNotNull = new FieldError("objectName", "username", null, false, new String[]{"NotNull"}, null, "Nome é obrigatório");
+        FieldError fieldErrorEmailInvalid = new FieldError("objectName", "email", null, false, new String[]{"Email"}, null, "Email deve ser válido");
+        FieldError fieldErrorEmailNotBlank = new FieldError("objectName", "email", null, false, new String[]{"NotBlank"}, null, "Email deve ser obrigatório");
+        FieldError fieldErrorPasswordSize = new FieldError("objectName", "password", null, false, new String[]{"Size"}, null, "Senha deve ter no minimo 8 caracteres");
+        FieldError fieldErrorPasswordPattern = new FieldError("objectName", "password", null, false, new String[]{"Pattern"}, null, "Senha deve ter caracteres especiais");
+        when(bindingResult.getFieldErrors()).thenReturn(List.of(fieldErrorNameSize, fieldErrorNameNotNull, fieldErrorEmailInvalid, fieldErrorEmailNotBlank, fieldErrorPasswordSize, fieldErrorPasswordPattern));
+
+        ResponseEntity<ApiErroTemplate> response = globalExceptionHandler.handleValidationExceptions(methodArgumentNotValidException);
+
+        List<FieldErrorDTO> expectedErrors = List.of(
+                new FieldErrorDTO("password", "Senha deve ter no minimo 8 caracteres"),
+                new FieldErrorDTO("email", "Email deve ser obrigatório"),
+                new FieldErrorDTO("username", "Nome é obrigatório")
+        );
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+        ApiErroTemplate apiErroTemplate = response.getBody();
+        assertNotNull(apiErroTemplate);
+        assertEquals(HttpStatus.BAD_REQUEST.value(), apiErroTemplate.getStatusCode());
+        assertEquals(expectedErrors.size(), apiErroTemplate.getFieldErrors().size());
+
+        for (int i = 0; i < expectedErrors.size(); i++) {
+            FieldErrorDTO expectedError = expectedErrors.get(i);
+            FieldErrorDTO actualError = apiErroTemplate.getFieldErrors().get(i);
+            assertEquals(expectedError.getField(), actualError.getField());
+            assertEquals(expectedError.getMessage(), actualError.getMessage());
+        }
+
+        assertNotNull(apiErroTemplate.getTimestamp());
+        assertEquals("Erro de validação: Por favor, corrija os campos destacados e tente novamente.", apiErroTemplate.getMessage());
     }
 
 }

@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -44,15 +45,28 @@ public class AuthControllerIntTest {
         invalidRequest.setEmail("invalidemail");
         invalidRequest.setPassword("short");
 
-        mockMvc.perform(post("/auth/signup")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.name").value("Nome é obrigatório"))
-                .andExpect(jsonPath("$.email").value("Email deve ser válido"))
-                .andExpect(jsonPath("$.password").value("Senha deve ter no minimo 8 caracteres"));
+        performSignupTest(
+                invalidRequest,
+                status().isBadRequest(),
+                new String[]{"name", "email", "password"},
+                new String[]{"Nome é obrigatório", "Email deve ser válido", "Senha deve ter no minimo 8 caracteres"}
+        );
     }
 
+    @Test
+    public void whenInvalidInput_passwordNumber_thenReturns400AndValidationErrors() throws Exception {
+        SignupRequestDTO invalidRequest = new SignupRequestDTO();
+        invalidRequest.setName("");
+        invalidRequest.setEmail("invalidemail");
+        invalidRequest.setPassword("57");
+
+        performSignupTest(
+                invalidRequest,
+                status().isBadRequest(),
+                new String[]{"password", "name", "email"},
+                new String[]{"Senha deve ter no minimo 8 caracteres", "Nome é obrigatório", "Email deve ser válido"}
+        );
+    }
 
     @Test
     public void whenInvalidInput_NotBlank_thenReturns400AndValidationErrors() throws Exception {
@@ -61,25 +75,36 @@ public class AuthControllerIntTest {
         invalidRequest.setEmail("");
         invalidRequest.setPassword("");
 
-        mockMvc.perform(post("/auth/signup")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.name").value("Nome é obrigatório"))
-                .andExpect(jsonPath("$.email").value("Email é obrigatório"))
-                .andExpect(jsonPath("$.password").value("Senha é obrigatório"));
+        performSignupTest(
+                invalidRequest,
+                status().isBadRequest(),
+                new String[]{"password", "name", "email"},
+                new String[]{"Senha é obrigatório", "Nome é obrigatório", "Email é obrigatório"}
+        );
     }
 
     @Test
     public void whenInvalidInput_NotNull_thenReturns400AndValidationErrors() throws Exception {
         SignupRequestDTO invalidRequest = new SignupRequestDTO();
 
-        mockMvc.perform(post("/auth/signup")
+        performSignupTest(
+                invalidRequest,
+                status().isBadRequest(),
+                new String[]{"name", "email", "password"},
+                new String[]{"Nome é obrigatório", "Email é obrigatório", "Senha é obrigatório"}
+        );
+    }
+
+    private void performSignupTest(SignupRequestDTO requestDTO, ResultMatcher statusMatcher, String[] fields, String[] messages) throws Exception {
+        var resultActions = mockMvc.perform(post("/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.name").value("Nome é obrigatório"))
-                .andExpect(jsonPath("$.email").value("Email é obrigatório"))
-                .andExpect(jsonPath("$.password").value("Senha é obrigatório"));
+                        .content(objectMapper.writeValueAsString(requestDTO)))
+                .andExpect(statusMatcher);
+
+        for (int i = 0; i < fields.length; i++) {
+            String fieldMatch = "$.fieldErrors[?(@.field == '" + fields[i];
+            String getMessage = "')].message";
+            resultActions.andExpect(jsonPath( fieldMatch + getMessage ).value(messages[i]));
+        }
     }
 }
