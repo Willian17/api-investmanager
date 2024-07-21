@@ -2,6 +2,8 @@ package com.api.investmanager.infra.config.handler;
 
 import com.api.investmanager.infra.config.handler.payload.ApiErroTemplate;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class DatabaseExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)

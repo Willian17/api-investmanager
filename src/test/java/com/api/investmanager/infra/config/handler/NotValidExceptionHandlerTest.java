@@ -17,7 +17,6 @@ import static org.mockito.Mockito.*;
 
 class NotValidExceptionHandlerTest {
 
-
     private NotValidExceptionHandler notValidExceptionHandler;
     private MethodArgumentNotValidException methodArgumentNotValidException;
     private BindingResult bindingResult;
