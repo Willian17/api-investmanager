@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.*;
 
 @RestControllerAdvice
-public class ArgumentNotValidExceptionHandler {
+public class NotValidExceptionHandler {
 
     private static final String[] PRIORITY_CODES = {"NotNull", "NotBlank"};
 

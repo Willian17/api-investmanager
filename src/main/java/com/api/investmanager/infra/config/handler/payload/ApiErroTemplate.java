@@ -1,11 +1,13 @@
 package com.api.investmanager.infra.config.handler.payload;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiErroTemplate {
     private final LocalDateTime timestamp;
     private final Integer statusCode;

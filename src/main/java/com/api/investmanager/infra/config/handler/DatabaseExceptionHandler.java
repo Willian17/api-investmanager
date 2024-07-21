@@ -15,25 +15,21 @@ public class DatabaseExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiErroTemplate> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-        ApiErroTemplate apiError = new ApiErroTemplate(HttpStatus.CONFLICT.value(), ex.getMessage());
-        return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
+        return UtilException.handleException(HttpStatus.CONFLICT, ex);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiErroTemplate> handleEntityNotFoundException(EntityNotFoundException ex) {
-        ApiErroTemplate apiError = new ApiErroTemplate(HttpStatus.NOT_FOUND.value(), ex.getMessage());
-        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+        return UtilException.handleException(HttpStatus.NOT_FOUND, ex);
     }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public ResponseEntity<ApiErroTemplate> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex) {
-        ApiErroTemplate apiError = new ApiErroTemplate(HttpStatus.NOT_FOUND.value(), ex.getMessage());
-        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+        return UtilException.handleException(HttpStatus.NOT_FOUND, ex);
     }
 
     @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
     public ResponseEntity<ApiErroTemplate> handleOptimisticLockingFailureException(ObjectOptimisticLockingFailureException ex) {
-        ApiErroTemplate apiError = new ApiErroTemplate(HttpStatus.CONFLICT.value(), ex.getMessage());
-        return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
+        return UtilException.handleException(HttpStatus.CONFLICT, ex);
     }
 }

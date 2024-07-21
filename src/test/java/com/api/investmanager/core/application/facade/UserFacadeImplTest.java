@@ -1,9 +1,7 @@
 package com.api.investmanager.core.application.facade;
 
 import com.api.investmanager.adapters.input.controller.auth.dto.SignupRequestDTO;
-import com.api.investmanager.core.application.mapper.UserMapper;
 import com.api.investmanager.core.application.port.input.user.CreateUserUseCase;
-import com.api.investmanager.core.application.port.input.user.UserFacade;
 import com.api.investmanager.core.domain.model.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

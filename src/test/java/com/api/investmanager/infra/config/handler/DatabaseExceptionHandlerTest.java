@@ -9,13 +9,12 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
-import org.springframework.validation.BindingResult;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 class DatabaseExceptionHandlerTest {
     private DatabaseExceptionHandler databaseExceptionHandler;
+
     @BeforeEach
     public void setUp() {
         databaseExceptionHandler = new DatabaseExceptionHandler();
