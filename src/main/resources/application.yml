@@ -12,7 +12,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
   flyway:
     enabled: true
@@ -27,4 +27,16 @@ spring:
 logging:
   level:
     org.springframework: INFO
+
+cors:
+  allowed-origins: http://localhost:4200
+  allowed-methods:
+    - "GET"
+    - "POST"
+    - "PUT"
+    - "DELETE"
+    - "OPTIONS"
+  allowed-headers: "*"
+  allow-credentials: true
+
 
