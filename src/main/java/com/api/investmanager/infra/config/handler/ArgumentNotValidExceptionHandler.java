@@ -1,4 +1,6 @@
 package com.api.investmanager.infra.config.handler;
+import com.api.investmanager.infra.config.handler.payload.ApiErroTemplate;
+import com.api.investmanager.infra.config.handler.payload.FieldErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.*;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class ArgumentNotValidExceptionHandler {
 
     private static final String[] PRIORITY_CODES = {"NotNull", "NotBlank"};
 

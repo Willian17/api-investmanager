@@ -1,4 +1,4 @@
-package com.api.investmanager.infra.config.handler;
+package com.api.investmanager.infra.config.handler.payload;
 
 import lombok.Getter;
 

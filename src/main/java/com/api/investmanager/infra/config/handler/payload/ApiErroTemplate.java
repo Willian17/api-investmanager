@@ -1,4 +1,4 @@
-package com.api.investmanager.infra.config.handler;
+package com.api.investmanager.infra.config.handler.payload;
 
 import lombok.Getter;
 
@@ -10,12 +10,18 @@ public class ApiErroTemplate {
     private final LocalDateTime timestamp;
     private final Integer statusCode;
     private final String message;
-    private final List<FieldErrorDTO> fieldErrors;
+    private List<FieldErrorDTO> fieldErrors;
 
     public ApiErroTemplate(Integer statusCode, String message,  List<FieldErrorDTO> fieldErrors) {
         this.timestamp = LocalDateTime.now();
         this.statusCode = statusCode;
         this.message = message;
         this.fieldErrors = fieldErrors;
+    }
+
+    public ApiErroTemplate(Integer statusCode, String message) {
+        this.timestamp = LocalDateTime.now();
+        this.statusCode = statusCode;
+        this.message = message;
     }
 }

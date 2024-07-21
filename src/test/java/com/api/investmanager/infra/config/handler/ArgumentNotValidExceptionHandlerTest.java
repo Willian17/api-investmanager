@@ -1,5 +1,7 @@
 package com.api.investmanager.infra.config.handler;
 
+import com.api.investmanager.infra.config.handler.payload.ApiErroTemplate;
+import com.api.investmanager.infra.config.handler.payload.FieldErrorDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -13,16 +15,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class GlobalExceptionHandlerTest {
+class ArgumentNotValidExceptionHandlerTest {
 
 
-    private GlobalExceptionHandler globalExceptionHandler;
+    private ArgumentNotValidExceptionHandler argumentNotValidExceptionHandler;
     private MethodArgumentNotValidException methodArgumentNotValidException;
     private BindingResult bindingResult;
 
     @BeforeEach
     public void setUp() {
-        globalExceptionHandler = new GlobalExceptionHandler();
+        argumentNotValidExceptionHandler = new ArgumentNotValidExceptionHandler();
         bindingResult = mock(BindingResult.class);
         methodArgumentNotValidException = new MethodArgumentNotValidException(null, bindingResult);
     }
@@ -35,7 +37,7 @@ class GlobalExceptionHandlerTest {
         FieldError fieldError4 = new FieldError("objectName", "password", "Password should have at least 8 characters");
         when(bindingResult.getFieldErrors()).thenReturn(List.of(fieldError1, fieldError2, fieldError3, fieldError4));
 
-        ResponseEntity<ApiErroTemplate> response = globalExceptionHandler.handleValidationExceptions(methodArgumentNotValidException);
+        ResponseEntity<ApiErroTemplate> response = argumentNotValidExceptionHandler.handleValidationExceptions(methodArgumentNotValidException);
 
         List<FieldErrorDTO> expectedErrors = List.of(
                 new FieldErrorDTO("password", "Password is mandatory"),
@@ -73,7 +75,7 @@ class GlobalExceptionHandlerTest {
         FieldError fieldErrorPasswordPattern = new FieldError("objectName", "password", null, false, new String[]{"Pattern"}, null, "Senha deve ter caracteres especiais");
         when(bindingResult.getFieldErrors()).thenReturn(List.of(fieldErrorNameSize, fieldErrorNameNotNull, fieldErrorEmailInvalid, fieldErrorEmailNotBlank, fieldErrorPasswordSize, fieldErrorPasswordPattern));
 
-        ResponseEntity<ApiErroTemplate> response = globalExceptionHandler.handleValidationExceptions(methodArgumentNotValidException);
+        ResponseEntity<ApiErroTemplate> response = argumentNotValidExceptionHandler.handleValidationExceptions(methodArgumentNotValidException);
 
         List<FieldErrorDTO> expectedErrors = List.of(
                 new FieldErrorDTO("password", "Senha deve ter no minimo 8 caracteres"),
