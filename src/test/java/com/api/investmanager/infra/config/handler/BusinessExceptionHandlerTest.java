@@ -1,6 +1,7 @@
 package com.api.investmanager.infra.config.handler;
 
 import com.api.investmanager.infra.config.exception.AlreadyExistsException;
+import com.api.investmanager.infra.config.exception.ClientException;
 import com.api.investmanager.infra.config.handler.payload.ApiErroTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,18 @@ class BusinessExceptionHandlerTest {
         assertNotNull(response.getBody());
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("Email já existente", response.getBody().getMessage());
+    }
+
+    @Test
+    public void handleClientException_ShouldReturnBadRequestAndExceptionMessage() {
+        ClientException ex = new ClientException("Email invalido");
+
+        ResponseEntity<ApiErroTemplate> response = businessExceptionHandler.handleClientException(ex);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Email invalido", response.getBody().getMessage());
     }
 
 
