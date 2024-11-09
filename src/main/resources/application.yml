@@ -39,4 +39,8 @@ cors:
   allowed-headers: "*"
   allow-credentials: true
 
+auth:
+  expirationHours: 24
+  privateSecretKey: ${PRIVATE_SECRET_KEY:dfgjhdghdfgjhf}
+
 

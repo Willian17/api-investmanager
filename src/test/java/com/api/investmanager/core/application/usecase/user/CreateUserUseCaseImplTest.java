@@ -1,8 +1,7 @@
-package com.api.investmanager.core.application.usecase;
+package com.api.investmanager.core.application.usecase.user;
 
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.application.port.output.user.CreateUserPort;
-import com.api.investmanager.core.application.usecase.user.CreateUserUseCaseImpl;
 import com.api.investmanager.core.domain.model.User;
 import com.api.investmanager.infra.config.exception.AlreadyExistsException;
 import org.junit.jupiter.api.Test;
