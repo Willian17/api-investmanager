@@ -1,6 +1,8 @@
 package com.api.investmanager.core.application.facade;
 
+import com.api.investmanager.adapters.input.controller.auth.dto.SigninRequestDTO;
 import com.api.investmanager.adapters.input.controller.auth.dto.SignupRequestDTO;
+import com.api.investmanager.core.application.port.input.user.AuthUserUseCase;
 import com.api.investmanager.core.application.port.input.user.CreateUserUseCase;
 import com.api.investmanager.core.domain.model.User;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -18,6 +21,9 @@ class UserFacadeImplTest {
 
     @Mock
     private CreateUserUseCase createUserUseCase;
+
+    @Mock
+    private AuthUserUseCase authUserUseCase;
 
 
     @Test
@@ -33,6 +39,22 @@ class UserFacadeImplTest {
         userFacade.createUser(req);
 
         verify(createUserUseCase).execute(userExpected);
+    }
+
+    @Test
+    void createUserFacadeWithAuthUser() {
+        SigninRequestDTO req = new SigninRequestDTO("email", "password");
+        User userExpected = User
+                .builder()
+                .email(req.getEmail())
+                .password(req.getPassword())
+                .build();
+        when(authUserUseCase.execute(userExpected)).thenReturn("token_teste");
+
+        String result = userFacade.authUser(req);
+
+        verify(authUserUseCase).execute(userExpected);
+        assertEquals("token_teste", result);
     }
 
 }

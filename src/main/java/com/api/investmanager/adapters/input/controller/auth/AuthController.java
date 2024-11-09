@@ -1,5 +1,7 @@
 package com.api.investmanager.adapters.input.controller.auth;
 
+import com.api.investmanager.adapters.input.controller.auth.dto.SigninRequestDTO;
+import com.api.investmanager.adapters.input.controller.auth.dto.SigninResponseDTO;
 import com.api.investmanager.adapters.input.controller.auth.dto.SignupRequestDTO;
 import com.api.investmanager.core.application.port.input.user.UserFacade;
 import jakarta.validation.Valid;
@@ -25,5 +27,11 @@ public class AuthController {
     public ResponseEntity<Void> signupUser(@Valid @RequestBody SignupRequestDTO requestDTO) {
         userFacade.createUser(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<SigninResponseDTO> signinUser(@Valid @RequestBody SigninRequestDTO requestDTO) {
+        String authorization = userFacade.authUser(requestDTO);
+        return ResponseEntity.ok(new SigninResponseDTO(authorization));
     }
 }
