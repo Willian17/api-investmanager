@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class SigninResponseDTO {
 
-    private String token;
+    private String access_token;
 }
