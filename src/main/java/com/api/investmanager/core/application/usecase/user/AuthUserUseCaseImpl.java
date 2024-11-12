@@ -5,7 +5,7 @@ import com.api.investmanager.core.application.port.input.user.AuthUserUseCase;
 import com.api.investmanager.core.application.port.output.user.AuthUserPort;
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.domain.model.User;
-import com.api.investmanager.infra.config.exception.ClientException;
+import com.api.investmanager.infra.exception.ClientException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

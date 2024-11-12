@@ -3,7 +3,7 @@ package com.api.investmanager.core.application.usecase.user;
 import com.api.investmanager.core.application.port.output.user.AuthUserPort;
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.domain.model.User;
-import com.api.investmanager.infra.config.exception.ClientException;
+import com.api.investmanager.infra.exception.ClientException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,6 +1,7 @@
 package com.api.investmanager.infra.config.handler;
 
-import com.api.investmanager.infra.config.handler.payload.ApiErroTemplate;
+import com.api.investmanager.infra.exception.handler.DatabaseExceptionHandler;
+import com.api.investmanager.infra.exception.handler.payload.ApiErroTemplate;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -3,6 +3,7 @@ package com.api.investmanager.infra.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "users")
@@ -22,5 +23,8 @@ public class UserEntity {
     private String email;
 
     private String password;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<MarkEntity> marks;
 
 }

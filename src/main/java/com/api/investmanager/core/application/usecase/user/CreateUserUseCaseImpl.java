@@ -4,7 +4,7 @@ import com.api.investmanager.core.application.port.input.user.CreateUserUseCase;
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.application.port.output.user.CreateUserPort;
 import com.api.investmanager.core.domain.model.User;
-import com.api.investmanager.infra.config.exception.AlreadyExistsException;
+import com.api.investmanager.infra.exception.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

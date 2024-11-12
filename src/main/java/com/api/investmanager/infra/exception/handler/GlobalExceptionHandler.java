@@ -1,6 +1,6 @@
-package com.api.investmanager.infra.config.handler;
+package com.api.investmanager.infra.exception.handler;
 
-import com.api.investmanager.infra.config.handler.payload.ApiErroTemplate;
+import com.api.investmanager.infra.exception.handler.payload.ApiErroTemplate;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

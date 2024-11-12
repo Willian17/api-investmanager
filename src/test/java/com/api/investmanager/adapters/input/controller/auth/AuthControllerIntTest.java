@@ -2,7 +2,6 @@ package com.api.investmanager.adapters.input.controller.auth;
 
 import com.api.investmanager.adapters.input.controller.auth.dto.SignupRequestDTO;
 import com.api.investmanager.core.application.port.input.user.UserFacade;
-import com.api.investmanager.infra.config.AuthConfig;
 import com.api.investmanager.infra.config.WebConfig;
 import com.api.investmanager.infra.config.properties.CorsProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;

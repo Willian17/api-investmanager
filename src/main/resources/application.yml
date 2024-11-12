@@ -40,7 +40,7 @@ cors:
   allow-credentials: true
 
 auth:
-  expirationHours: 24
+  expirationHours: 30
   privateSecretKey: ${PRIVATE_SECRET_KEY:dfgjhdghdfgjhf}
 
 

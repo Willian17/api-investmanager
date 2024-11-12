@@ -1,4 +1,4 @@
-package com.api.investmanager.infra.config.handler.payload;
+package com.api.investmanager.infra.exception.handler.payload;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

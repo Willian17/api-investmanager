@@ -1,6 +1,7 @@
 package com.api.investmanager.infra.config.handler;
 
-import com.api.investmanager.infra.config.handler.payload.ApiErroTemplate;
+import com.api.investmanager.infra.exception.handler.GlobalExceptionHandler;
+import com.api.investmanager.infra.exception.handler.payload.ApiErroTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
