@@ -7,9 +7,7 @@ import com.api.investmanager.core.application.port.input.user.AuthUserUseCase;
 import com.api.investmanager.core.application.port.input.user.CreateUserUseCase;
 import com.api.investmanager.core.application.port.input.user.UserFacade;
 import com.api.investmanager.core.domain.model.User;
-import org.springframework.stereotype.Service;
 
-@Service
 public class UserFacadeImpl implements UserFacade {
 
     private final CreateUserUseCase createUserUseCase;

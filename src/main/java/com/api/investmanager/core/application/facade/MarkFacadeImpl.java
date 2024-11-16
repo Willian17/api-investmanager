@@ -5,11 +5,9 @@ import com.api.investmanager.core.application.mapper.MarkMapper;
 import com.api.investmanager.core.application.port.input.mark.ListMarksUseCase;
 import com.api.investmanager.core.application.port.input.mark.MarkFacade;
 import com.api.investmanager.core.domain.model.Mark;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class MarkFacadeImpl implements MarkFacade {
 
     private final ListMarksUseCase listMarksUseCase;
