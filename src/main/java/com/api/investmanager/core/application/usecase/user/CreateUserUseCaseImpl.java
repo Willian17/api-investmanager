@@ -1,29 +1,25 @@
 package com.api.investmanager.core.application.usecase.user;
 
 import com.api.investmanager.core.application.port.input.user.CreateUserUseCase;
+import com.api.investmanager.core.application.port.output.cryptography.HashEncode;
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.application.port.output.user.CreateUserPort;
 import com.api.investmanager.core.domain.model.User;
 import com.api.investmanager.infra.exception.AlreadyExistsException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-@Service
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final CreateUserPort createUserPort;
 
     private final ConsultUserPort consultUserPort;
 
-    private final PasswordEncoder passwordEncoder;
+    private final HashEncode hashEncode;
 
-    @Autowired
-    public CreateUserUseCaseImpl(CreateUserPort createUserPort, ConsultUserPort consultUserPort, PasswordEncoder passwordEncoder) {
+    public CreateUserUseCaseImpl(CreateUserPort createUserPort, ConsultUserPort consultUserPort, HashEncode hashEncode) {
         this.createUserPort = createUserPort;
         this.consultUserPort = consultUserPort;
-        this.passwordEncoder = passwordEncoder;
+        this.hashEncode = hashEncode;
     }
 
     @Override
@@ -32,7 +28,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         if(Objects.nonNull(userExists) && Objects.nonNull(userExists.getEmail())) {
             throw new AlreadyExistsException("Este email já está em uso.");
         }
-        String passwordEncoded = passwordEncoder.encode(user.getPassword());
+        String passwordEncoded = hashEncode.encode(user.getPassword());
         user.setPassword(passwordEncoded);
         this.createUserPort.execute(user);
     }

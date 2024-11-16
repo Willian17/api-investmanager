@@ -23,7 +23,7 @@ public class ListMarksAdapter implements ListMarksPort {
         List<MarkEntity> marks = markRepository.findByUser_Id(UUID.fromString(idUser));
 
         return marks.stream()
-                .map(MarkMapper.INSTANCE::markEntityToMarkModel)
+                .map(MarkMapper::markEntityToMarkModel)
                 .toList();
     }
 }

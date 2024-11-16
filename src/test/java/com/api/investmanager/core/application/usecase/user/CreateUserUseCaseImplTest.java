@@ -1,5 +1,6 @@
 package com.api.investmanager.core.application.usecase.user;
 
+import com.api.investmanager.core.application.port.output.cryptography.HashEncode;
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.application.port.output.user.CreateUserPort;
 import com.api.investmanager.core.domain.model.User;
@@ -12,7 +13,6 @@ import org.mockito.Mock;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.UUID;
 
@@ -29,7 +29,7 @@ class CreateUserUseCaseImplTest {
     private ConsultUserPort consultUserPort;
 
     @Mock
-    private PasswordEncoder passwordEncoder;
+    private HashEncode hashEncode;
 
     @Test
     void shouldCreateUserIfNotExists() {
@@ -37,10 +37,10 @@ class CreateUserUseCaseImplTest {
         User userExpected = getUserExpected();
 
         when(consultUserPort.execute(anyString())).thenReturn(null);
-        when(passwordEncoder.encode("password")).thenReturn(userExpected.getPassword());
+        when(hashEncode.encode("password")).thenReturn(userExpected.getPassword());
         createUserUseCase.execute(user);
 
-        verify(passwordEncoder).encode("password");
+        verify(hashEncode).encode("password");
         verify(consultUserPort).execute(userExpected.getEmail());
         verify(createUserPort).execute(userExpected);
     }
@@ -52,10 +52,10 @@ class CreateUserUseCaseImplTest {
         User userExpected = getUserExpected();
 
         when(consultUserPort.execute(anyString())).thenReturn(new User());
-        when(passwordEncoder.encode("password")).thenReturn(userExpected.getPassword());
+        when(hashEncode.encode("password")).thenReturn(userExpected.getPassword());
         createUserUseCase.execute(user);
 
-        verify(passwordEncoder).encode("password");
+        verify(hashEncode).encode("password");
         verify(consultUserPort).execute(userExpected.getEmail());
         verify(createUserPort).execute(userExpected);
     }
@@ -75,7 +75,7 @@ class CreateUserUseCaseImplTest {
 
         assertEquals("Este email já está em uso.", alreadyExistsException.getMessage());
         verify(consultUserPort).execute(userExpected.getEmail());
-        verifyNoInteractions(passwordEncoder);
+        verifyNoInteractions(hashEncode);
         verifyNoInteractions(createUserPort);
     }
 

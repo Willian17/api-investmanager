@@ -22,6 +22,6 @@ public class MarkFacadeImpl implements MarkFacade {
     @Override
     public List<MarkResponseDTO> listMarks(String idUser) {
         List<Mark> marks = listMarksUseCase.execute(idUser);
-        return MarkMapper.INSTANCE.markModelToMarkResponseDTO(marks);
+        return MarkMapper.markModelToMarkResponseDTO(marks);
     }
 }

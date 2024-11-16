@@ -1,5 +1,6 @@
 package com.api.investmanager.core.application.usecase.user;
 
+import com.api.investmanager.core.application.port.output.cryptography.HashCompare;
 import com.api.investmanager.core.application.port.output.user.AuthUserPort;
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.domain.model.User;
@@ -28,7 +29,7 @@ class AuthUserUseCaseImplTest {
     private ConsultUserPort consultUserPort;
 
     @Mock
-    private PasswordEncoder passwordEncoder;
+    private HashCompare hashCompare;
 
     @Mock
     private AuthUserPort authUserPort;
@@ -47,7 +48,7 @@ class AuthUserUseCaseImplTest {
 
         assertEquals("Credenciais inválidas, tente novamente!", alreadyExistsException.getMessage());
         verify(consultUserPort).execute(userExpected.getEmail());
-        verifyNoInteractions(passwordEncoder);
+        verifyNoInteractions(hashCompare);
     }
 
     @Test
@@ -59,7 +60,7 @@ class AuthUserUseCaseImplTest {
         userReturned.setId(String.valueOf(UUID.randomUUID()));
 
         when(consultUserPort.execute(anyString())).thenReturn(userReturned);
-        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
+        when(hashCompare.compare(anyString(), anyString())).thenReturn(false);
 
         ClientException alreadyExistsException =  assertThrows(
                 ClientException.class,
@@ -67,7 +68,7 @@ class AuthUserUseCaseImplTest {
 
         assertEquals("Credenciais inválidas, tente novamente!", alreadyExistsException.getMessage());
         verify(consultUserPort).execute(userExpected.getEmail());
-        verify(passwordEncoder).matches(user.getPassword(), userExpected.getPassword());
+        verify(hashCompare).compare(user.getPassword(), userExpected.getPassword());
         verifyNoInteractions(authUserPort);
     }
 
@@ -80,7 +81,7 @@ class AuthUserUseCaseImplTest {
         userReturned.setId(String.valueOf(UUID.randomUUID()));
 
         when(consultUserPort.execute(anyString())).thenReturn(userReturned);
-        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
+        when(hashCompare.compare(anyString(), anyString())).thenReturn(true);
         when(authUserPort.execute(any(User.class))).thenReturn("token_etc");
 
 
@@ -88,7 +89,7 @@ class AuthUserUseCaseImplTest {
 
         assertEquals("token_etc", authentication);
         verify(consultUserPort).execute(userExpected.getEmail());
-        verify(passwordEncoder).matches(user.getPassword(), userExpected.getPassword());
+        verify(hashCompare).compare(user.getPassword(), userExpected.getPassword());
         verify(authUserPort).execute(userReturned);
     }
 
