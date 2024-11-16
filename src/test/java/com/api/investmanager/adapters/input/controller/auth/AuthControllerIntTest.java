@@ -2,6 +2,7 @@ package com.api.investmanager.adapters.input.controller.auth;
 
 import com.api.investmanager.adapters.input.controller.auth.dto.SignupRequestDTO;
 import com.api.investmanager.core.application.port.input.user.UserFacade;
+import com.api.investmanager.infra.config.SecurityConfig;
 import com.api.investmanager.infra.config.WebConfig;
 import com.api.investmanager.infra.config.properties.CorsProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AuthController.class)
-@Import({AuthConfig.class, CorsProperties.class, WebConfig.class})
+@Import({SecurityConfig.class, CorsProperties.class, WebConfig.class})
 public class AuthControllerIntTest {
     @Autowired
     private MockMvc mockMvc;

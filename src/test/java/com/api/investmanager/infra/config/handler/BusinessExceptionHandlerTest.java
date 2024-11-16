@@ -2,6 +2,7 @@ package com.api.investmanager.infra.config.handler;
 
 import com.api.investmanager.infra.exception.AlreadyExistsException;
 import com.api.investmanager.infra.exception.ClientException;
+import com.api.investmanager.infra.exception.UnauthorizedException;
 import com.api.investmanager.infra.exception.handler.BusinessExceptionHandler;
 import com.api.investmanager.infra.exception.handler.payload.ApiErroTemplate;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,6 +43,18 @@ class BusinessExceptionHandlerTest {
         assertNotNull(response.getBody());
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("Email invalido", response.getBody().getMessage());
+    }
+
+    @Test
+    public void handleUnauthorizedException_ShouldReturnUnauthorizedAndExceptionMessage() {
+        UnauthorizedException ex = new UnauthorizedException("Token invalido");
+
+        ResponseEntity<ApiErroTemplate> response = businessExceptionHandler.handleUnauthorizedException(ex);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+        assertEquals("Token invalido", response.getBody().getMessage());
     }
 
 
