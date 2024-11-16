@@ -39,7 +39,7 @@ class AuthUserAdapterTest {
     @Test
     void shouldGenerateValidJwtToken() {
         User user = new User();
-        user.setId(new UUID(3, 3));
+        user.setId(String.valueOf(new UUID(3, 3)));
         long horasExpire = 240L;
 
         when(authProperties.getPrivateSecretKey()).thenReturn("minha_chave_secreta_teste_mockdhfuishdfuisdfusdufiysduifysudify");

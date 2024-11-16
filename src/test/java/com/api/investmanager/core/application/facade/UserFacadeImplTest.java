@@ -29,12 +29,7 @@ class UserFacadeImplTest {
     @Test
     void createUserFacade() {
         SignupRequestDTO req = new SignupRequestDTO("name", "email", "password");
-        User userExpected = User
-                .builder()
-                .name(req.getName())
-                .email(req.getEmail())
-                .password(req.getPassword())
-                .build();
+        User userExpected = new User(null, req.getName(), req.getEmail(), req.getPassword());
 
         userFacade.createUser(req);
 
@@ -44,11 +39,7 @@ class UserFacadeImplTest {
     @Test
     void createUserFacadeWithAuthUser() {
         SigninRequestDTO req = new SigninRequestDTO("email", "password");
-        User userExpected = User
-                .builder()
-                .email(req.getEmail())
-                .password(req.getPassword())
-                .build();
+        User userExpected = new User(null, null, req.getEmail(), req.getPassword());
         when(authUserUseCase.execute(userExpected)).thenReturn("token_teste");
 
         String result = userFacade.authUser(req);

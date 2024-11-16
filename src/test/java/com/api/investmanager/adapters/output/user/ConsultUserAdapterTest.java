@@ -33,12 +33,7 @@ class ConsultUserAdapterTest {
     void returnUserIfExists() {
         String email = "email@email.com";
 
-        User userExpected = User
-                .builder()
-                .email("email@email.com")
-                .password("password")
-                .name("name")
-                .build();
+        User userExpected = getUserExpected();
 
         UserEntity userEntityReturn = UserEntity
                 .builder()
@@ -57,6 +52,8 @@ class ConsultUserAdapterTest {
         verify(userMapper).userEntityToUserModel(userEntityReturn);
     }
 
+
+
     @Test
     void returnNullIfNotExists() {
         String email = "email@email.com";
@@ -68,6 +65,10 @@ class ConsultUserAdapterTest {
         assertNull(userActual);
         verify(userRepository).findFirstByEmail(email);
         verifyNoInteractions(userMapper);
+    }
+
+    private static User getUserExpected() {
+        return new User(null, "name", "email@email.com", "password");
     }
 
 

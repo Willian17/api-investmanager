@@ -19,22 +19,23 @@ class CreateUserEntityAdapterTest {
 
     @Test
     void createUserSuccess() {
-        User user = User
-                .builder()
-                .email("email@email.com")
-                .password("password")
-                .name("name")
-                .build();
+        User user = getUser();
+        UserEntity userEntityExpected = getUserEntity(user);
 
-        UserEntity userEntityExpected = UserEntity
+        createUserAdapter.execute(user);
+        verify(userRepository).save(userEntityExpected);
+    }
+
+    private static UserEntity getUserEntity(User user) {
+        return UserEntity
                 .builder()
                 .name(user.getName())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .build();
+    }
 
-        createUserAdapter.execute(user);
-
-        verify(userRepository).save(userEntityExpected);
+    private static User getUser() {
+        return new User(null, "name", "email@email.com", "password");
     }
 }

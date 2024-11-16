@@ -36,19 +36,8 @@ class AuthUserUseCaseImplTest {
     @Test
     @DisplayName("Deve lançar invalid Credentials se usuario não existe")
     void shouldExceptionIfNotExistsUser() {
-        User user = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password")
-                .build();
-
-        User userExpected = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password_encoded")
-                .build();
+        User user = getUser();
+        User userExpected = getUserExpected();
 
         when(consultUserPort.execute(anyString())).thenReturn(null);
 
@@ -64,29 +53,10 @@ class AuthUserUseCaseImplTest {
     @Test
     @DisplayName("Deve lançar invalid Credentials se senha inválida")
     void shouldExceptionIfPasswordInvalid() {
-        User user = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password")
-                .build();
-
-        User userExpected = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password_encoded")
-                .build();
-
-        User userReturned = User
-                .builder()
-                .id(new UUID(100, 100))
-                .name("name")
-                .email("email@email.com")
-                .password("password_encoded")
-                .build();
-
-
+        User user = getUser();
+        User userExpected = getUserExpected();
+        User userReturned = getUserExpected();
+        userReturned.setId(String.valueOf(UUID.randomUUID()));
 
         when(consultUserPort.execute(anyString())).thenReturn(userReturned);
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
@@ -98,35 +68,16 @@ class AuthUserUseCaseImplTest {
         assertEquals("Credenciais inválidas, tente novamente!", alreadyExistsException.getMessage());
         verify(consultUserPort).execute(userExpected.getEmail());
         verify(passwordEncoder).matches(user.getPassword(), userExpected.getPassword());
-        verify(authUserPort).execute(userReturned);
+        verifyNoInteractions(authUserPort);
     }
 
     @Test
     @DisplayName("Deve autenticar o usuario se dados corretos")
     void shouldAuthUserSuccess() {
-        User user = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password")
-                .build();
-
-        User userExpected = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password_encoded")
-                .build();
-
-        User userReturned = User
-                .builder()
-                .id(new UUID(100, 100))
-                .name("name")
-                .email("email@email.com")
-                .password("password_encoded")
-                .build();
-
-
+        User user = getUser();
+        User userExpected = getUserExpected();
+        User userReturned = getUserExpected();
+        userReturned.setId(String.valueOf(UUID.randomUUID()));
 
         when(consultUserPort.execute(anyString())).thenReturn(userReturned);
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
@@ -139,6 +90,14 @@ class AuthUserUseCaseImplTest {
         verify(consultUserPort).execute(userExpected.getEmail());
         verify(passwordEncoder).matches(user.getPassword(), userExpected.getPassword());
         verify(authUserPort).execute(userReturned);
+    }
+
+    private static User getUserExpected() {
+        return new User(null, "name", "email@email.com", "password_encoded");
+    }
+
+    private static User getUser() {
+        return new User(null, "name", "email@email.com", "password");
     }
 
 

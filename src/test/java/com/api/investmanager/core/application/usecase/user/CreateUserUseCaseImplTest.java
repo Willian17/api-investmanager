@@ -33,19 +33,8 @@ class CreateUserUseCaseImplTest {
 
     @Test
     void shouldCreateUserIfNotExists() {
-        User user = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password")
-                .build();
-
-        User userExpected = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password_encoded")
-                .build();
+        User user = getUser();
+        User userExpected = getUserExpected();
 
         when(consultUserPort.execute(anyString())).thenReturn(null);
         when(passwordEncoder.encode("password")).thenReturn(userExpected.getPassword());
@@ -58,19 +47,9 @@ class CreateUserUseCaseImplTest {
 
     @Test
     void shouldCreateUserIfNotExistsUserEmpty() {
-        User user = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password")
-                .build();
+        User user = getUser();
 
-        User userExpected = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password_encoded")
-                .build();
+        User userExpected = getUserExpected();
 
         when(consultUserPort.execute(anyString())).thenReturn(new User());
         when(passwordEncoder.encode("password")).thenReturn(userExpected.getPassword());
@@ -83,27 +62,10 @@ class CreateUserUseCaseImplTest {
 
     @Test
     void shouldExceptionIfExistsUser() {
-        User user = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password")
-                .build();
+        User user = getUser();
+        User userExpected = getUserExpected();
 
-        User userExpected = User
-                .builder()
-                .name("name")
-                .email("email@email.com")
-                .password("password_encoded")
-                .build();
-
-        User userReturned = User
-                .builder()
-                .id(new UUID(100, 100))
-                .name("name")
-                .email("email@email.com")
-                .password("password_encoded")
-                .build();
+        User userReturned = new User(new UUID(10, 10).toString(), "name", "email@email.com", "password_encoded");
 
         when(consultUserPort.execute(anyString())).thenReturn(userReturned);
 
@@ -115,6 +77,14 @@ class CreateUserUseCaseImplTest {
         verify(consultUserPort).execute(userExpected.getEmail());
         verifyNoInteractions(passwordEncoder);
         verifyNoInteractions(createUserPort);
+    }
+
+    private static User getUserExpected() {
+        return new User(null, "name", "email@email.com", "password_encoded");
+    }
+
+    private static User getUser() {
+        return new User(null, "name", "email@email.com", "password");
     }
 
 }
