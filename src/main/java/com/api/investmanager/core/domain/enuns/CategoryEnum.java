@@ -1,20 +1,20 @@
 package com.api.investmanager.core.domain.enuns;
 
 public enum CategoryEnum {
-    ACOES_NACIONAIS("AN"),
-    ACOES_INTERNACIONAIS("AI"),
-    FUNDOS_IMOBILIARIOS("FI"),
-    REITS("RT"),
-    RENDA_FIXA("RF"),
-    CRIPTOMOEDA("CM");
+    ACOES_NACIONAIS("Ações nacionais"),
+    ACOES_INTERNACIONAIS("Ações internacionais"),
+    FUNDOS_IMOBILIARIOS("Fundos imobiliarios"),
+    REITS("Reits"),
+    RENDA_FIXA("Renda fixa"),
+    CRIPTOMOEDAS("Criptomoedas");
 
-    private final String code;
+    private final String description;
 
-    CategoryEnum(String code) {
-        this.code = code;
+    CategoryEnum(String description) {
+        this.description = description;
     }
 
-    public String getCode() {
-        return code;
+    public String getDescription() {
+        return description;
     }
 }

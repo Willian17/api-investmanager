@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.api</groupId>
 	<artifactId>investmanager</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>2.0.0</version>
 	<name>investmanager</name>
 	<description>Api InvestManager - Rebalanciamento de carteira de insvestimentos</description>
 	<url/>
