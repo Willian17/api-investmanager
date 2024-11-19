@@ -26,7 +26,7 @@ class AddMarksDefaultUseCaseImplTest {
     CreateMarksPort createMarksPort;
 
     @Test
-    void testExecute_ReturnsEmptyList_WhenNoMarksFound() {
+    void testExecute_CreateDefaultSuccess() {
         String idUser = "user123";
         List<Mark> marks = Stream.of(CategoryEnum.values())
                 .map(category -> new Mark(null, 0, category))
