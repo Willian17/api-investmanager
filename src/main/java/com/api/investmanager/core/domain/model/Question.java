@@ -5,14 +5,20 @@ import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import java.util.Objects;
 
 public class Question {
+    private final String id;
     private String question;
     private String criterion;
-    private CategoryEnum category;
+    private final CategoryEnum category;
 
-    public Question(String question, String criterion, CategoryEnum category) {
+    public Question(String id,String question, String criterion, CategoryEnum category) {
+        this.id = id;
         this.question = question;
         this.criterion = criterion;
         this.category = category;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getQuestion() {

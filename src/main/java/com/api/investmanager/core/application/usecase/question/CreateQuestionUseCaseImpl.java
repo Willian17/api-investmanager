@@ -4,7 +4,6 @@ import com.api.investmanager.core.application.dto.question.CreateQuestionQuery;
 import com.api.investmanager.core.application.port.input.question.CreateQuestionUseCase;
 import com.api.investmanager.core.application.port.output.question.CreateQuestionOutput;
 import com.api.investmanager.core.application.port.output.user.UserExistsByIdPort;
-import com.api.investmanager.core.domain.model.Question;
 import com.api.investmanager.core.domain.exception.NotFoundException;
 
 public class CreateQuestionUseCaseImpl implements CreateQuestionUseCase {
@@ -23,8 +22,6 @@ public class CreateQuestionUseCaseImpl implements CreateQuestionUseCase {
         if(!userExists) {
             throw new NotFoundException("Usuario não encontrado");
         }
-
-        Question question = new Question(createQuestionQuery.question(), createQuestionQuery.criterion(), createQuestionQuery.category());
 
         createQuestionOutput.execute(createQuestionQuery);
     }
