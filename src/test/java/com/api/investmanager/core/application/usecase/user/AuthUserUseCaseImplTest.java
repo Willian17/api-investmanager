@@ -4,14 +4,13 @@ import com.api.investmanager.core.application.port.output.cryptography.HashCompa
 import com.api.investmanager.core.application.port.output.user.AuthUserPort;
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.domain.model.User;
-import com.api.investmanager.infra.exception.ClientException;
+import com.api.investmanager.core.domain.exception.ClientException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.UUID;
 

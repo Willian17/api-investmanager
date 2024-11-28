@@ -1,4 +1,4 @@
-package com.api.investmanager.infra.exception;
+package com.api.investmanager.core.domain.exception;
 
 public class NotFoundException extends BusinessException{
 

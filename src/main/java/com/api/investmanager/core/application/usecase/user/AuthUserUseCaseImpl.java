@@ -6,7 +6,7 @@ import com.api.investmanager.core.application.port.output.cryptography.HashCompa
 import com.api.investmanager.core.application.port.output.user.AuthUserPort;
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.domain.model.User;
-import com.api.investmanager.infra.exception.ClientException;
+import com.api.investmanager.core.domain.exception.ClientException;
 
 public class AuthUserUseCaseImpl implements AuthUserUseCase {
 

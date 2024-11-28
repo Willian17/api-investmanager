@@ -5,7 +5,7 @@ import com.api.investmanager.core.application.port.input.question.CreateQuestion
 import com.api.investmanager.core.application.port.output.question.CreateQuestionOutput;
 import com.api.investmanager.core.application.port.output.user.UserExistsByIdPort;
 import com.api.investmanager.core.domain.model.Question;
-import com.api.investmanager.infra.exception.NotFoundException;
+import com.api.investmanager.core.domain.exception.NotFoundException;
 
 public class CreateQuestionUseCaseImpl implements CreateQuestionUseCase {
     private final UserExistsByIdPort userExistsById;

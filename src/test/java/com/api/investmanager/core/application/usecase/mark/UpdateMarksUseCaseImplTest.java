@@ -3,7 +3,7 @@ package com.api.investmanager.core.application.usecase.mark;
 import com.api.investmanager.core.application.port.output.mark.UpdateMarksPort;
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import com.api.investmanager.core.domain.model.Mark;
-import com.api.investmanager.infra.exception.ClientException;
+import com.api.investmanager.core.domain.exception.ClientException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verifyNoInteractions;
 

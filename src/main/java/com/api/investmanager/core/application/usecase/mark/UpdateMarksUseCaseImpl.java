@@ -4,7 +4,7 @@ import com.api.investmanager.core.application.port.input.mark.UpdateMarksUseCase
 import com.api.investmanager.core.application.port.output.mark.UpdateMarksPort;
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import com.api.investmanager.core.domain.model.Mark;
-import com.api.investmanager.infra.exception.ClientException;
+import com.api.investmanager.core.domain.exception.ClientException;
 
 import java.util.HashSet;
 import java.util.List;

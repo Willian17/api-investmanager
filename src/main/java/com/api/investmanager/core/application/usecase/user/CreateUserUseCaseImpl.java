@@ -5,7 +5,7 @@ import com.api.investmanager.core.application.port.output.cryptography.HashEncod
 import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.application.port.output.user.CreateUserPort;
 import com.api.investmanager.core.domain.model.User;
-import com.api.investmanager.infra.exception.AlreadyExistsException;
+import com.api.investmanager.core.domain.exception.AlreadyExistsException;
 
 import java.util.Objects;
 

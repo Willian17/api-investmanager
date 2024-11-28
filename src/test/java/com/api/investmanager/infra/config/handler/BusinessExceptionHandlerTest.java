@@ -1,7 +1,7 @@
 package com.api.investmanager.infra.config.handler;
 
-import com.api.investmanager.infra.exception.AlreadyExistsException;
-import com.api.investmanager.infra.exception.ClientException;
+import com.api.investmanager.core.domain.exception.AlreadyExistsException;
+import com.api.investmanager.core.domain.exception.ClientException;
 import com.api.investmanager.infra.exception.UnauthorizedException;
 import com.api.investmanager.infra.exception.handler.BusinessExceptionHandler;
 import com.api.investmanager.infra.exception.handler.payload.ApiErroTemplate;
