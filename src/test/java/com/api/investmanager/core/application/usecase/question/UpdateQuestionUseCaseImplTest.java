@@ -28,39 +28,21 @@ class UpdateQuestionUseCaseImplTest {
     UpdateQuestionUseCaseImpl updateQuestionUseCase;
 
     @Mock
-    UserExistsByIdPort userExistsById;
-
-    @Mock
     ConsultQuestionOutput questionExistsById;
 
     @Mock
     UpdateQuestionOutput updateQuestionOutput;
 
-    @Test
-    void throwExeceptionWhenUserNotExists() {
-        UpdateQuestionQuery updateQuestionQuery = new UpdateQuestionQuery("123", "id_user_1234", "Lucro liquido maior que 20%?", "LUCRO");
-
-        when(userExistsById.execute(anyString())).thenReturn(false);
-
-        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> updateQuestionUseCase.execute(updateQuestionQuery));
-
-        assertEquals(notFoundException.getMessage(), "Usuario não encontrado");
-        verify(userExistsById).execute("id_user_1234");
-        verifyNoInteractions(questionExistsById);
-    }
 
     @Test
     void throwExeceptionWhenQuestionNotExists() {
         UpdateQuestionQuery updateQuestionQuery = new UpdateQuestionQuery("question_123", "id_user_1234", "Lucro liquido maior que 20%?", "LUCRO");
 
-
-        when(userExistsById.execute(anyString())).thenReturn(true);
         when(questionExistsById.execute(anyString())).thenReturn(Optional.empty());
 
         NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> updateQuestionUseCase.execute(updateQuestionQuery));
 
         assertEquals(notFoundException.getMessage(), "Pergunta não encontrada!");
-        verify(userExistsById).execute("id_user_1234");
         verify(questionExistsById).execute("question_123");
     }
 
@@ -71,12 +53,10 @@ class UpdateQuestionUseCaseImplTest {
 
         Question questionUpdated = new Question("question_123","Lucro liquido maior que 20%?", "LUCRO",  CategoryEnum.ACOES_NACIONAIS);
 
-        when(userExistsById.execute(anyString())).thenReturn(true);
         when(questionExistsById.execute(anyString())).thenReturn(Optional.of(question));
 
         updateQuestionUseCase.execute(updateQuestionQuery);
 
-        verify(userExistsById).execute("id_user_1234");
         verify(questionExistsById).execute("question_123");
         verify(updateQuestionOutput).execute(questionUpdated, updateQuestionQuery.idUser());
     }

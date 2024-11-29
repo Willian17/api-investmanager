@@ -12,21 +12,17 @@ import java.util.Optional;
 
 public class UpdateQuestionUseCaseImpl  implements UpdateQuestionUseCase {
 
-    private final UserExistsByIdPort userExistsById;
     private final ConsultQuestionOutput questionExistsByIdOutput;
 
     private final UpdateQuestionOutput updateQuestionOutput;
 
-    public UpdateQuestionUseCaseImpl(UserExistsByIdPort userExistsById, ConsultQuestionOutput questionExistsByIdPort, ConsultQuestionOutput questionExistsByIdPort1, UpdateQuestionOutput updateQuestionOutput) {
-        this.userExistsById = userExistsById;
+    public UpdateQuestionUseCaseImpl(ConsultQuestionOutput questionExistsByIdPort, ConsultQuestionOutput questionExistsByIdPort1, UpdateQuestionOutput updateQuestionOutput) {
         this.questionExistsByIdOutput = questionExistsByIdPort;
         this.updateQuestionOutput = updateQuestionOutput;
     }
 
     @Override
     public void execute(UpdateQuestionQuery data) {
-        validateExistsUser(data);
-
         Optional<Question> questionOptional = questionExistsByIdOutput.execute(data.id());
 
         updateQuestion(data, questionOptional.orElseThrow(() -> new NotFoundException("Pergunta não encontrada!")));
@@ -36,12 +32,5 @@ public class UpdateQuestionUseCaseImpl  implements UpdateQuestionUseCase {
         question.setQuestion(data.question());
         question.setCriterion(data.criterion());
         updateQuestionOutput.execute(question, data.idUser());
-    }
-
-    private void validateExistsUser(UpdateQuestionQuery data) {
-        boolean userExists = userExistsById.execute(data.idUser());
-        if(!userExists) {
-            throw new NotFoundException("Usuario não encontrado");
-        }
     }
 }
