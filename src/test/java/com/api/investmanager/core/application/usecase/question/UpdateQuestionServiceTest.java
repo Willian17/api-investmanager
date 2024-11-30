@@ -3,7 +3,6 @@ package com.api.investmanager.core.application.usecase.question;
 import com.api.investmanager.core.application.dto.question.UpdateQuestionQuery;
 import com.api.investmanager.core.application.port.output.question.ConsultQuestionOutput;
 import com.api.investmanager.core.application.port.output.question.UpdateQuestionOutput;
-import com.api.investmanager.core.application.port.output.user.UserExistsByIdPort;
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import com.api.investmanager.core.domain.exception.NotFoundException;
 import com.api.investmanager.core.domain.model.Question;
@@ -19,13 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoInteractions;
 
 @ExtendWith(MockitoExtension.class)
-class UpdateQuestionUseCaseImplTest {
+class UpdateQuestionServiceTest {
 
     @InjectMocks
-    UpdateQuestionUseCaseImpl updateQuestionUseCase;
+    UpdateQuestionService updateQuestionUseCase;
 
     @Mock
     ConsultQuestionOutput questionExistsById;

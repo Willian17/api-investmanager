@@ -1,6 +1,5 @@
 package com.api.investmanager.core.application.usecase.user;
 
-import com.api.investmanager.core.application.dto.question.RemoveQuestionQuery;
 import com.api.investmanager.core.application.port.output.user.UserExistsByIdPort;
 import com.api.investmanager.core.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
@@ -10,17 +9,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoInteractions;
 
 @ExtendWith(MockitoExtension.class)
-class VerifyUserUseCaseImplTest {
+class VerifyUserServiceTest {
 
     @InjectMocks
-    VerifyUserUseCaseImpl verifyUserUseCase;
+    VerifyUserService verifyUserUseCase;
 
     @Mock
     UserExistsByIdPort userExistsById;

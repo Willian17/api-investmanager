@@ -8,7 +8,7 @@ import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
 import com.api.investmanager.core.domain.model.User;
 import com.api.investmanager.core.domain.exception.ClientException;
 
-public class AuthUserUseCaseImpl implements AuthUserUseCase {
+public class AuthUserService implements AuthUserUseCase {
 
     private final ConsultUserPort consultUserPort;
 
@@ -16,7 +16,7 @@ public class AuthUserUseCaseImpl implements AuthUserUseCase {
 
     private final AuthUserPort authUserPort;
 
-    public AuthUserUseCaseImpl(ConsultUserPort consultUserPort, HashCompare hashCompare, AuthUserPort authUserPort) {
+    public AuthUserService(ConsultUserPort consultUserPort, HashCompare hashCompare, AuthUserPort authUserPort) {
         this.consultUserPort = consultUserPort;
         this.hashCompare = hashCompare;
         this.authUserPort = authUserPort;

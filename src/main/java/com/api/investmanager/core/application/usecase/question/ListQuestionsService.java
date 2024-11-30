@@ -7,11 +7,11 @@ import com.api.investmanager.core.domain.model.Question;
 
 import java.util.List;
 
-public class ListQuestionsUseCaseImpl implements ListQuestionsUseCase {
+public class ListQuestionsService implements ListQuestionsUseCase {
 
     private final ListQuestionOutput listQuestionOutput;
 
-    public ListQuestionsUseCaseImpl(ListQuestionOutput listQuestionOutput) {
+    public ListQuestionsService(ListQuestionOutput listQuestionOutput) {
         this.listQuestionOutput = listQuestionOutput;
     }
 

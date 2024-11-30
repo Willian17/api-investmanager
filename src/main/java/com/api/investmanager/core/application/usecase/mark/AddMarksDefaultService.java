@@ -8,10 +8,10 @@ import com.api.investmanager.core.domain.model.Mark;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class AddMarksDefaultUseCaseImpl implements AddMarksDefaultUseCase {
+public class AddMarksDefaultService implements AddMarksDefaultUseCase {
     private final CreateMarksPort createMarksPort;
 
-    public AddMarksDefaultUseCaseImpl(CreateMarksPort createMarksPort) {
+    public AddMarksDefaultService(CreateMarksPort createMarksPort) {
         this.createMarksPort = createMarksPort;
     }
 

@@ -20,9 +20,9 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 @ExtendWith(MockitoExtension.class)
-class AuthUserUseCaseImplTest {
+class AuthUserServiceTest {
     @InjectMocks
-    private AuthUserUseCaseImpl authUserUseCase;
+    private AuthUserService authUserUseCase;
 
     @Mock
     private ConsultUserPort consultUserPort;

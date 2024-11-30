@@ -4,10 +4,10 @@ import com.api.investmanager.core.application.port.input.user.VerifyUserUseCase;
 import com.api.investmanager.core.application.port.output.user.UserExistsByIdPort;
 import com.api.investmanager.core.domain.exception.NotFoundException;
 
-public class VerifyUserUseCaseImpl implements VerifyUserUseCase {
+public class VerifyUserService implements VerifyUserUseCase {
     private final UserExistsByIdPort userExistsById;
 
-    public VerifyUserUseCaseImpl(UserExistsByIdPort userExistsById) {
+    public VerifyUserService(UserExistsByIdPort userExistsById) {
         this.userExistsById = userExistsById;
     }
 

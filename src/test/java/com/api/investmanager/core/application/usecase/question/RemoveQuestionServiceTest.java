@@ -19,9 +19,9 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class RemoveQuestionUseCaseImplTest {
+class RemoveQuestionServiceTest {
     @InjectMocks
-    RemoveQuestionUseCaseImpl removeQuestionUseCase;
+    RemoveQuestionService removeQuestionUseCase;
 
     @Mock
     ConsultQuestionOutput consultQuestionOutput;

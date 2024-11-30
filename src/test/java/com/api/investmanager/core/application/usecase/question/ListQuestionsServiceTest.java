@@ -12,10 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ListQuestionsUseCaseImplTest {
+class ListQuestionsServiceTest {
 
     @InjectMocks
-    ListQuestionsUseCaseImpl listQuestionsUseCase;
+    ListQuestionsService listQuestionsUseCase;
 
     @Mock
     ListQuestionOutput listQuestionOutput;

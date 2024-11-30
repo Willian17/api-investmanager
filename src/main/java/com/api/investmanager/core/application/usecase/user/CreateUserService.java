@@ -9,14 +9,14 @@ import com.api.investmanager.core.domain.exception.AlreadyExistsException;
 
 import java.util.Objects;
 
-public class CreateUserUseCaseImpl implements CreateUserUseCase {
+public class CreateUserService implements CreateUserUseCase {
     private final CreateUserPort createUserPort;
 
     private final ConsultUserPort consultUserPort;
 
     private final HashEncode hashEncode;
 
-    public CreateUserUseCaseImpl(CreateUserPort createUserPort, ConsultUserPort consultUserPort, HashEncode hashEncode) {
+    public CreateUserService(CreateUserPort createUserPort, ConsultUserPort consultUserPort, HashEncode hashEncode) {
         this.createUserPort = createUserPort;
         this.consultUserPort = consultUserPort;
         this.hashEncode = hashEncode;

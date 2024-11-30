@@ -4,19 +4,18 @@ import com.api.investmanager.core.application.dto.question.UpdateQuestionQuery;
 import com.api.investmanager.core.application.port.input.question.UpdateQuestionUseCase;
 import com.api.investmanager.core.application.port.output.question.ConsultQuestionOutput;
 import com.api.investmanager.core.application.port.output.question.UpdateQuestionOutput;
-import com.api.investmanager.core.application.port.output.user.UserExistsByIdPort;
 import com.api.investmanager.core.domain.exception.NotFoundException;
 import com.api.investmanager.core.domain.model.Question;
 
 import java.util.Optional;
 
-public class UpdateQuestionUseCaseImpl  implements UpdateQuestionUseCase {
+public class UpdateQuestionService implements UpdateQuestionUseCase {
 
     private final ConsultQuestionOutput questionExistsByIdOutput;
 
     private final UpdateQuestionOutput updateQuestionOutput;
 
-    public UpdateQuestionUseCaseImpl(ConsultQuestionOutput questionExistsByIdPort, ConsultQuestionOutput questionExistsByIdPort1, UpdateQuestionOutput updateQuestionOutput) {
+    public UpdateQuestionService(ConsultQuestionOutput questionExistsByIdPort, ConsultQuestionOutput questionExistsByIdPort1, UpdateQuestionOutput updateQuestionOutput) {
         this.questionExistsByIdOutput = questionExistsByIdPort;
         this.updateQuestionOutput = updateQuestionOutput;
     }

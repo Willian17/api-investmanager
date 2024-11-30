@@ -12,16 +12,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoInteractions;
 
 
 @ExtendWith(MockitoExtension.class)
-class ListMarksUseCaseImplTest {
+class ListMarksServiceTest {
 
     @InjectMocks
-    ListMarksUseCaseImpl listMarksUseCase;
+    ListMarksService listMarksUseCase;
 
     @Mock
     ListMarksPort listMarksPort;

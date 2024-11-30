@@ -10,11 +10,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class UpdateMarksUseCaseImpl implements UpdateMarksUseCase {
+public class UpdateMarksService implements UpdateMarksUseCase {
 
     private final UpdateMarksPort updateMarksPort;
 
-    public UpdateMarksUseCaseImpl(UpdateMarksPort updateMarksPort) {
+    public UpdateMarksService(UpdateMarksPort updateMarksPort) {
         this.updateMarksPort = updateMarksPort;
     }
 

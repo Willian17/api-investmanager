@@ -6,10 +6,10 @@ import com.api.investmanager.core.domain.model.Mark;
 
 import java.util.List;
 
-public class ListMarksUseCaseImpl implements ListMarksUseCase {
+public class ListMarksService implements ListMarksUseCase {
     private final ListMarksPort listMarksPort;
 
-    public ListMarksUseCaseImpl(ListMarksPort listMarksPort) {
+    public ListMarksService(ListMarksPort listMarksPort) {
         this.listMarksPort = listMarksPort;
     }
 

@@ -18,9 +18,9 @@ import java.util.UUID;
 
 
 @ExtendWith(MockitoExtension.class)
-class CreateUserUseCaseImplTest {
+class CreateUserServiceTest {
     @InjectMocks
-    private CreateUserUseCaseImpl createUserUseCase;
+    private CreateUserService createUserUseCase;
 
     @Mock
     private CreateUserPort createUserPort;

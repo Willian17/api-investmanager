@@ -1,6 +1,5 @@
 package com.api.investmanager.core.application.usecase.mark;
 
-import com.api.investmanager.core.application.port.input.mark.AddMarksDefaultUseCase;
 import com.api.investmanager.core.application.port.output.mark.CreateMarksPort;
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import com.api.investmanager.core.domain.model.Mark;
@@ -17,10 +16,10 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class AddMarksDefaultUseCaseImplTest {
+class AddMarksDefaultServiceTest {
 
     @InjectMocks
-    AddMarksDefaultUseCaseImpl addMarksDefaultUseCase;
+    AddMarksDefaultService addMarksDefaultUseCase;
 
     @Mock
     CreateMarksPort createMarksPort;

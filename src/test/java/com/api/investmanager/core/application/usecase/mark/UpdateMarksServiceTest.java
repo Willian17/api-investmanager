@@ -19,9 +19,9 @@ import static org.mockito.Mockito.verifyNoInteractions;
 
 
 @ExtendWith(MockitoExtension.class)
-class UpdateMarksUseCaseImplTest {
+class UpdateMarksServiceTest {
     @InjectMocks
-    UpdateMarksUseCaseImpl updateMarksUseCase;
+    UpdateMarksService updateMarksUseCase;
 
     @Mock
     UpdateMarksPort updateMarksPort;
