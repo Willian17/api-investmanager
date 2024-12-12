@@ -3,7 +3,7 @@ package com.api.investmanager.core.application.usecase.question;
 import com.api.investmanager.core.application.dto.question.UpdateQuestionQuery;
 import com.api.investmanager.core.application.port.output.question.ConsultQuestionOutput;
 import com.api.investmanager.core.application.port.output.question.UpdateQuestionOutput;
-import com.api.investmanager.core.domain.enuns.CategoryEnum;
+import com.api.investmanager.core.domain.enuns.CategoryQuestionEnum;
 import com.api.investmanager.core.domain.exception.NotFoundException;
 import com.api.investmanager.core.domain.model.Question;
 import org.junit.jupiter.api.Test;
@@ -47,9 +47,9 @@ class UpdateQuestionServiceTest {
     @Test
     void shouldUpdateQuestionSuccessfully() {
         UpdateQuestionQuery updateQuestionQuery = new UpdateQuestionQuery("question_123", "id_user_1234", "Lucro liquido maior que 20%?", "LUCRO");
-        Question question = new Question("question_123", "Lucro liquido maior que 30%?", "lucro", CategoryEnum.ACOES_NACIONAIS);
+        Question question = new Question("question_123", "Lucro liquido maior que 30%?", "lucro", CategoryQuestionEnum.ACOES_NACIONAIS);
 
-        Question questionUpdated = new Question("question_123","Lucro liquido maior que 20%?", "LUCRO",  CategoryEnum.ACOES_NACIONAIS);
+        Question questionUpdated = new Question("question_123","Lucro liquido maior que 20%?", "LUCRO",  CategoryQuestionEnum.ACOES_NACIONAIS);
 
         when(questionExistsById.execute(anyString())).thenReturn(Optional.of(question));
 

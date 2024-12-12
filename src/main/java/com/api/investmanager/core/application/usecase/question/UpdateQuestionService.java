@@ -15,7 +15,7 @@ public class UpdateQuestionService implements UpdateQuestionUseCase {
 
     private final UpdateQuestionOutput updateQuestionOutput;
 
-    public UpdateQuestionService(ConsultQuestionOutput questionExistsByIdPort, ConsultQuestionOutput questionExistsByIdPort1, UpdateQuestionOutput updateQuestionOutput) {
+    public UpdateQuestionService(ConsultQuestionOutput questionExistsByIdPort, UpdateQuestionOutput updateQuestionOutput) {
         this.questionExistsByIdOutput = questionExistsByIdPort;
         this.updateQuestionOutput = updateQuestionOutput;
     }

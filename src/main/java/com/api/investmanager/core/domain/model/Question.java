@@ -1,6 +1,7 @@
 package com.api.investmanager.core.domain.model;
 
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
+import com.api.investmanager.core.domain.enuns.CategoryQuestionEnum;
 
 import java.util.Objects;
 
@@ -8,9 +9,9 @@ public class Question {
     private final String id;
     private String question;
     private String criterion;
-    private final CategoryEnum category;
+    private final CategoryQuestionEnum category;
 
-    public Question(String id,String question, String criterion, CategoryEnum category) {
+    public Question(String id,String question, String criterion, CategoryQuestionEnum category) {
         this.id = id;
         this.question = question;
         this.criterion = criterion;
@@ -37,7 +38,7 @@ public class Question {
         this.criterion = criterion;
     }
 
-    public CategoryEnum getCategory() {
+    public CategoryQuestionEnum getCategory() {
         return category;
     }
 
