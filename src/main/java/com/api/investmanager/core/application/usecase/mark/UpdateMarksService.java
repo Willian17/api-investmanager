@@ -1,7 +1,7 @@
 package com.api.investmanager.core.application.usecase.mark;
 
 import com.api.investmanager.core.application.port.input.mark.UpdateMarksUseCase;
-import com.api.investmanager.core.application.port.output.mark.UpdateMarksPort;
+import com.api.investmanager.core.application.port.output.mark.UpdateMarksOutput;
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import com.api.investmanager.core.domain.model.Mark;
 import com.api.investmanager.core.domain.exception.ClientException;
@@ -12,17 +12,17 @@ import java.util.Set;
 
 public class UpdateMarksService implements UpdateMarksUseCase {
 
-    private final UpdateMarksPort updateMarksPort;
+    private final UpdateMarksOutput updateMarksOutput;
 
-    public UpdateMarksService(UpdateMarksPort updateMarksPort) {
-        this.updateMarksPort = updateMarksPort;
+    public UpdateMarksService(UpdateMarksOutput updateMarksOutput) {
+        this.updateMarksOutput = updateMarksOutput;
     }
 
     @Override
     public void execute(List<Mark> marks, String idUser) {
         validMarks(marks);
 
-        updateMarksPort.execute(marks, idUser);
+        updateMarksOutput.execute(marks, idUser);
     }
 
     private static void validMarks(List<Mark> marks) {

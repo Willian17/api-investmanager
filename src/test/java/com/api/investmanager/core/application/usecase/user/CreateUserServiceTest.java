@@ -1,8 +1,8 @@
 package com.api.investmanager.core.application.usecase.user;
 
 import com.api.investmanager.core.application.port.output.cryptography.HashEncode;
-import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
-import com.api.investmanager.core.application.port.output.user.CreateUserPort;
+import com.api.investmanager.core.application.port.output.user.ConsultUserOutput;
+import com.api.investmanager.core.application.port.output.user.CreateUserOutput;
 import com.api.investmanager.core.domain.model.User;
 import com.api.investmanager.core.domain.exception.AlreadyExistsException;
 import org.junit.jupiter.api.Test;
@@ -23,10 +23,10 @@ class CreateUserServiceTest {
     private CreateUserService createUserUseCase;
 
     @Mock
-    private CreateUserPort createUserPort;
+    private CreateUserOutput createUserOutput;
 
     @Mock
-    private ConsultUserPort consultUserPort;
+    private ConsultUserOutput consultUserOutput;
 
     @Mock
     private HashEncode hashEncode;
@@ -36,13 +36,13 @@ class CreateUserServiceTest {
         User user = getUser();
         User userExpected = getUserExpected();
 
-        when(consultUserPort.execute(anyString())).thenReturn(null);
+        when(consultUserOutput.execute(anyString())).thenReturn(null);
         when(hashEncode.encode("password")).thenReturn(userExpected.getPassword());
         createUserUseCase.execute(user);
 
         verify(hashEncode).encode("password");
-        verify(consultUserPort).execute(userExpected.getEmail());
-        verify(createUserPort).execute(userExpected);
+        verify(consultUserOutput).execute(userExpected.getEmail());
+        verify(createUserOutput).execute(userExpected);
     }
 
     @Test
@@ -51,13 +51,13 @@ class CreateUserServiceTest {
 
         User userExpected = getUserExpected();
 
-        when(consultUserPort.execute(anyString())).thenReturn(new User());
+        when(consultUserOutput.execute(anyString())).thenReturn(new User());
         when(hashEncode.encode("password")).thenReturn(userExpected.getPassword());
         createUserUseCase.execute(user);
 
         verify(hashEncode).encode("password");
-        verify(consultUserPort).execute(userExpected.getEmail());
-        verify(createUserPort).execute(userExpected);
+        verify(consultUserOutput).execute(userExpected.getEmail());
+        verify(createUserOutput).execute(userExpected);
     }
 
     @Test
@@ -67,16 +67,16 @@ class CreateUserServiceTest {
 
         User userReturned = new User(new UUID(10, 10).toString(), "name", "email@email.com", "password_encoded");
 
-        when(consultUserPort.execute(anyString())).thenReturn(userReturned);
+        when(consultUserOutput.execute(anyString())).thenReturn(userReturned);
 
         AlreadyExistsException alreadyExistsException =  assertThrows(
                 AlreadyExistsException.class,
                 () -> createUserUseCase.execute(user));
 
         assertEquals("Este email já está em uso.", alreadyExistsException.getMessage());
-        verify(consultUserPort).execute(userExpected.getEmail());
+        verify(consultUserOutput).execute(userExpected.getEmail());
         verifyNoInteractions(hashEncode);
-        verifyNoInteractions(createUserPort);
+        verifyNoInteractions(createUserOutput);
     }
 
     private static User getUserExpected() {

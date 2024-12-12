@@ -1,6 +1,6 @@
 package com.api.investmanager.core.application.usecase.user;
 
-import com.api.investmanager.core.application.port.output.user.UserExistsByIdPort;
+import com.api.investmanager.core.application.port.output.user.UserExistsByIdOutput;
 import com.api.investmanager.core.domain.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ class VerifyUserServiceTest {
     VerifyUserService verifyUserUseCase;
 
     @Mock
-    UserExistsByIdPort userExistsById;
+    UserExistsByIdOutput userExistsById;
 
     @Test
     void shouldThrowExceptionWhenUserDoesNotExist() {

@@ -1,7 +1,7 @@
 package com.api.investmanager.core.application.usecase.mark;
 
 import com.api.investmanager.core.application.port.input.mark.AddMarksDefaultUseCase;
-import com.api.investmanager.core.application.port.output.mark.CreateMarksPort;
+import com.api.investmanager.core.application.port.output.mark.CreateMarksOutput;
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import com.api.investmanager.core.domain.model.Mark;
 
@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class AddMarksDefaultService implements AddMarksDefaultUseCase {
-    private final CreateMarksPort createMarksPort;
+    private final CreateMarksOutput createMarksOutput;
 
-    public AddMarksDefaultService(CreateMarksPort createMarksPort) {
-        this.createMarksPort = createMarksPort;
+    public AddMarksDefaultService(CreateMarksOutput createMarksOutput) {
+        this.createMarksOutput = createMarksOutput;
     }
 
     @Override
@@ -20,6 +20,6 @@ public class AddMarksDefaultService implements AddMarksDefaultUseCase {
         List<Mark> marks = Stream.of(CategoryEnum.values())
                 .map(category -> new Mark(null, 0, category))
                 .toList();
-        createMarksPort.execute(marks, idUser);
+        createMarksOutput.execute(marks, idUser);
     }
 }

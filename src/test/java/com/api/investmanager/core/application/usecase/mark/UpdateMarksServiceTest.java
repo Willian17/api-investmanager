@@ -1,6 +1,6 @@
 package com.api.investmanager.core.application.usecase.mark;
 
-import com.api.investmanager.core.application.port.output.mark.UpdateMarksPort;
+import com.api.investmanager.core.application.port.output.mark.UpdateMarksOutput;
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import com.api.investmanager.core.domain.model.Mark;
 import com.api.investmanager.core.domain.exception.ClientException;
@@ -24,7 +24,7 @@ class UpdateMarksServiceTest {
     UpdateMarksService updateMarksUseCase;
 
     @Mock
-    UpdateMarksPort updateMarksPort;
+    UpdateMarksOutput updateMarksOutput;
 
     @Test
     void testExecute_ThrowException_WhenPercentageGreaterThan100() {
@@ -40,7 +40,7 @@ class UpdateMarksServiceTest {
 
         ClientException clientException = assertThrows(ClientException.class, () -> updateMarksUseCase.execute(marks, idUser));
 
-        verifyNoInteractions(updateMarksPort);
+        verifyNoInteractions(updateMarksOutput);
         assertEquals("A soma dos percentuais excede o limite permitido de 100%.", clientException.getMessage());
     }
 
@@ -58,7 +58,7 @@ class UpdateMarksServiceTest {
 
         ClientException clientException = assertThrows(ClientException.class, () -> updateMarksUseCase.execute(marks, idUser));
 
-        verifyNoInteractions(updateMarksPort);
+        verifyNoInteractions(updateMarksOutput);
         assertEquals("A porcentagem não pode ser inferior a 0%.", clientException.getMessage());
     }
 
@@ -75,7 +75,7 @@ class UpdateMarksServiceTest {
 
         ClientException clientException = assertThrows(ClientException.class, () -> updateMarksUseCase.execute(marks, idUser));
 
-        verifyNoInteractions(updateMarksPort);
+        verifyNoInteractions(updateMarksOutput);
         assertEquals("Para completar a operação, todas as categorias exigidas devem ser informadas.", clientException.getMessage());
     }
 
@@ -93,6 +93,6 @@ class UpdateMarksServiceTest {
 
         updateMarksUseCase.execute(marks, idUser);
 
-        verify(updateMarksPort).execute(marks, idUser);
+        verify(updateMarksOutput).execute(marks, idUser);
     }
 }

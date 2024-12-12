@@ -1,6 +1,6 @@
 package com.api.investmanager.core.application.usecase.mark;
 
-import com.api.investmanager.core.application.port.output.mark.CreateMarksPort;
+import com.api.investmanager.core.application.port.output.mark.CreateMarksOutput;
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import com.api.investmanager.core.domain.model.Mark;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class AddMarksDefaultServiceTest {
     AddMarksDefaultService addMarksDefaultUseCase;
 
     @Mock
-    CreateMarksPort createMarksPort;
+    CreateMarksOutput createMarksOutput;
 
     @Test
     void testExecute_CreateDefaultSuccess() {
@@ -33,7 +33,7 @@ class AddMarksDefaultServiceTest {
 
         addMarksDefaultUseCase.execute(idUser);
 
-        verify(createMarksPort).execute(marks, idUser);
+        verify(createMarksOutput).execute(marks, idUser);
     }
 
 }

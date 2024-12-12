@@ -1,7 +1,7 @@
 package com.api.investmanager.adapters.output.mark;
 
 import com.api.investmanager.core.application.mapper.MarkMapper;
-import com.api.investmanager.core.application.port.output.mark.ListMarksPort;
+import com.api.investmanager.core.application.port.output.mark.ListMarksOutput;
 import com.api.investmanager.core.domain.model.Mark;
 import com.api.investmanager.infra.database.entity.MarkEntity;
 import com.api.investmanager.infra.repository.MarkRepository;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class ListMarksAdapter implements ListMarksPort {
+public class ListMarksAdapter implements ListMarksOutput {
     private final MarkRepository markRepository;
 
     public ListMarksAdapter(MarkRepository markRepository) {

@@ -2,7 +2,7 @@ package com.api.investmanager.core.application.usecase.user;
 
 import com.api.investmanager.core.application.port.output.cryptography.HashCompare;
 import com.api.investmanager.core.application.port.output.user.AuthUserPort;
-import com.api.investmanager.core.application.port.output.user.ConsultUserPort;
+import com.api.investmanager.core.application.port.output.user.ConsultUserOutput;
 import com.api.investmanager.core.domain.model.User;
 import com.api.investmanager.core.domain.exception.ClientException;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +25,7 @@ class AuthUserServiceTest {
     private AuthUserService authUserUseCase;
 
     @Mock
-    private ConsultUserPort consultUserPort;
+    private ConsultUserOutput consultUserOutput;
 
     @Mock
     private HashCompare hashCompare;
@@ -39,14 +39,14 @@ class AuthUserServiceTest {
         User user = getUser();
         User userExpected = getUserExpected();
 
-        when(consultUserPort.execute(anyString())).thenReturn(null);
+        when(consultUserOutput.execute(anyString())).thenReturn(null);
 
         ClientException alreadyExistsException =  assertThrows(
                 ClientException.class,
                 () -> authUserUseCase.execute(user));
 
         assertEquals("Credenciais inválidas, tente novamente!", alreadyExistsException.getMessage());
-        verify(consultUserPort).execute(userExpected.getEmail());
+        verify(consultUserOutput).execute(userExpected.getEmail());
         verifyNoInteractions(hashCompare);
     }
 
@@ -58,7 +58,7 @@ class AuthUserServiceTest {
         User userReturned = getUserExpected();
         userReturned.setId(String.valueOf(UUID.randomUUID()));
 
-        when(consultUserPort.execute(anyString())).thenReturn(userReturned);
+        when(consultUserOutput.execute(anyString())).thenReturn(userReturned);
         when(hashCompare.compare(anyString(), anyString())).thenReturn(false);
 
         ClientException alreadyExistsException =  assertThrows(
@@ -66,7 +66,7 @@ class AuthUserServiceTest {
                 () -> authUserUseCase.execute(user));
 
         assertEquals("Credenciais inválidas, tente novamente!", alreadyExistsException.getMessage());
-        verify(consultUserPort).execute(userExpected.getEmail());
+        verify(consultUserOutput).execute(userExpected.getEmail());
         verify(hashCompare).compare(user.getPassword(), userExpected.getPassword());
         verifyNoInteractions(authUserPort);
     }
@@ -79,7 +79,7 @@ class AuthUserServiceTest {
         User userReturned = getUserExpected();
         userReturned.setId(String.valueOf(UUID.randomUUID()));
 
-        when(consultUserPort.execute(anyString())).thenReturn(userReturned);
+        when(consultUserOutput.execute(anyString())).thenReturn(userReturned);
         when(hashCompare.compare(anyString(), anyString())).thenReturn(true);
         when(authUserPort.execute(any(User.class))).thenReturn("token_etc");
 
@@ -87,7 +87,7 @@ class AuthUserServiceTest {
         String authentication = authUserUseCase.execute(user);
 
         assertEquals("token_etc", authentication);
-        verify(consultUserPort).execute(userExpected.getEmail());
+        verify(consultUserOutput).execute(userExpected.getEmail());
         verify(hashCompare).compare(user.getPassword(), userExpected.getPassword());
         verify(authUserPort).execute(userReturned);
     }

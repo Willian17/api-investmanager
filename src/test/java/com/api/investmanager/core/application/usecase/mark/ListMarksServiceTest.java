@@ -1,6 +1,6 @@
 package com.api.investmanager.core.application.usecase.mark;
 
-import com.api.investmanager.core.application.port.output.mark.ListMarksPort;
+import com.api.investmanager.core.application.port.output.mark.ListMarksOutput;
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
 import com.api.investmanager.core.domain.model.Mark;
 import org.junit.jupiter.api.Test;
@@ -22,17 +22,17 @@ class ListMarksServiceTest {
     ListMarksService listMarksUseCase;
 
     @Mock
-    ListMarksPort listMarksPort;
+    ListMarksOutput listMarksOutput;
 
     @Test
     void testExecute_ReturnsEmptyList_WhenNoMarksFound() {
-        when(listMarksPort.execute("user123")).thenReturn(List.of());
+        when(listMarksOutput.execute("user123")).thenReturn(List.of());
 
         List<Mark> marks = listMarksUseCase.execute("user123");
 
         assertNotNull(marks, "Marks list should not be null");
         assertTrue(marks.isEmpty(), "Marks list should be empty");
-        verify(listMarksPort).execute("user123");
+        verify(listMarksOutput).execute("user123");
     }
 
     @Test
@@ -41,13 +41,13 @@ class ListMarksServiceTest {
                 new Mark("id", 50, CategoryEnum.ACOES_NACIONAIS),
                 new Mark("id2", 50, CategoryEnum.ACOES_INTERNACIONAIS)
         );
-        when(listMarksPort.execute("user123")).thenReturn(marksExpected);
+        when(listMarksOutput.execute("user123")).thenReturn(marksExpected);
 
         List<Mark> marks = listMarksUseCase.execute("user123");
 
         assertNotNull(marks, "Marks list should not be null");
         assertFalse(marks.isEmpty(), "Marks list should be empty");
-        verify(listMarksPort).execute("user123");
+        verify(listMarksOutput).execute("user123");
         assertEquals(marks, marksExpected);
     }
 

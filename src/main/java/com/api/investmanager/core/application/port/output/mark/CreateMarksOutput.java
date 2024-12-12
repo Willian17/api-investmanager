@@ -4,6 +4,6 @@ import com.api.investmanager.core.domain.model.Mark;
 
 import java.util.List;
 
-public interface ListMarksPort {
-    List<Mark> execute(String idUser);
+public interface CreateMarksOutput {
+    void execute(List<Mark> marks, String idUser);
 }
