@@ -1,28 +1,30 @@
 package com.api.investmanager.core.domain.model;
 
 import com.api.investmanager.core.domain.enuns.CategoryEnum;
+import com.api.investmanager.core.domain.exception.ClientException;
 
 import java.util.Objects;
 
 public class Mark {
-    private String id;
+    private final String id;
 
     private Integer percentage;
 
-    private CategoryEnum category;
+    private final CategoryEnum category;
+
+    public Mark(String id, CategoryEnum category) {
+        this.id = id;
+        this.category = category;
+    }
 
     public Mark(String id, Integer percentage, CategoryEnum category) {
         this.id = id;
-        this.percentage = percentage;
         this.category = category;
+        this.percentage = percentage;
     }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Integer getPercentage() {
@@ -30,15 +32,17 @@ public class Mark {
     }
 
     public void setPercentage(Integer percentage) {
+        if (percentage < 0) {
+            throw new ClientException("A porcentagem não pode ser inferior a 0%.");
+        }
+        if(percentage > 100) {
+            throw new ClientException("A porcentagem não pode ser superior a 100%.");
+        }
         this.percentage = percentage;
     }
 
     public CategoryEnum getCategory() {
         return category;
-    }
-
-    public void setCategory(CategoryEnum category) {
-        this.category = category;
     }
 
     @Override
