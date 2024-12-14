@@ -12,6 +12,14 @@ public class Active {
     private final CategoryEnum category;
     private BigDecimal amount;
 
+    public Active(String id, String name, CategoryEnum category, BigDecimal amount) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.amount = amount;
+    }
+
+
     public Active(CategoryEnum category, String name) {
         this.name = name;
         this.category = category;
